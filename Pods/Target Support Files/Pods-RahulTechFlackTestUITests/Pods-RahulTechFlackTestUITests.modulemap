@@ -1,0 +1,6 @@
+framework module Pods_RahulTechFlackTestUITests {
+  umbrella header "Pods-RahulTechFlackTestUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
