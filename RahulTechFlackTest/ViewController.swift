@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 import SDWebImage
 import Alamofire
 
@@ -17,15 +18,26 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
+        //If have data, append it to arr
+        if let data = UserDefaults.standard.data(forKey: "Data") {
+            if let arrTemp = NSKeyedUnarchiver.unarchiveObject(with: data) as? [RootClass] {
+                imageDatas.append(contentsOf: arrTemp)
+            }
+        }
+        
         Alamofire.request(URL(string: Base_Url+Api_Key)!).responseData { (data) in
             do {
                 let dict = try JSONSerialization.jsonObject(with: data.data! , options: JSONSerialization.ReadingOptions.mutableContainers) as! [String:Any]
-                print(dict)
+                var latestData = [[String:Any]]()
                 let tempArr = dict["articles"] as! [[String:Any]]
                 for obj in tempArr {
                     let imageData = RootClass(fromDictionary: obj)
-                    self.imageDatas.append(imageData)                    
+                    self.imageDatas.append(imageData)
+                    latestData.append(obj)
                 }
+                //Stored only latest data
+                let data = NSKeyedArchiver.archivedData(withRootObject:latestData)
+                UserDefaults.standard.set(data, forKey: "Data")
                 self.collectionView.reloadData()
             } catch {
             }

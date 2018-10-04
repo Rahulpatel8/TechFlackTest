@@ -116,7 +116,9 @@ class RootClass : NSObject, NSCoding{
 		if urlToImage != nil{
 			aCoder.encode(urlToImage, forKey: "urlToImage")
 		}
-
 	}
-
+    
+    public static func ==(lhs: RootClass, rhs: RootClass) -> Bool {
+        return (lhs.url == rhs.url)
+    }
 }

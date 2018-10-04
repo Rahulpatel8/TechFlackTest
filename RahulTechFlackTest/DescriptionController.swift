@@ -14,7 +14,7 @@ class DescriptionController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var descTextView: UITextView!
     @IBOutlet weak var pushAtLabel: UILabel!
     @IBOutlet weak var linkButton: UIButton!
     @IBOutlet weak var webContainerView: UIView!
@@ -37,7 +37,7 @@ class DescriptionController: UIViewController {
             })
             authorLabel.text = "Author:\n" + (contentObject.author ?? "")
             titleLabel.text = "Title:\n" + (contentObject.title ?? "")
-            descLabel.text = "Description:\n" + (contentObject.descriptionField ?? "")
+            descTextView.text = "Description:\n" + (contentObject.descriptionField ?? "")
             pushAtLabel.text = "Published At:\n" + (contentObject.publishedAt ?? "")
             linkButton.setTitle(contentObject.url, for: .normal)
             webView.allowsBackForwardNavigationGestures = true
